@@ -9,7 +9,6 @@ function SearchBar({query,setQuery}){
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
             />
-            <p>You are searching for: {query}</p>
         </div>
     )
 }

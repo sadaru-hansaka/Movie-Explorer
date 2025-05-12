@@ -29,6 +29,5 @@ export const getMovieDetails = (id) =>
   axios.get(`${BASE_URL}/movie/${id}?api_key=${API_KEY}`);
 
 // get video trailers for a movie
-export const getMovieVideos = (id) => {
+export const getMovieVideos = (id) => 
   axios.get(`${BASE_URL}/movie/${id}/videos?api_key=${API_KEY}`);
-}
