@@ -9,7 +9,13 @@ function Movies() {
     const fetchMovies = async (pageNumber) => {
         try{
             const res = await getPopular(pageNumber);
-            setMovies((prev)=>[...prev,...res.data.results]);
+            const newMovies = res.data.results;
+
+            setMovies((prev) => {
+              const existingIDS = new Set(prev.map((m)=>m.id));
+              const filtered = newMovies.filter((m) => !existingIDS.has(m.id));
+              return[...prev, ...filtered];
+            });
         
         }catch(err){
             console.error("Error fetching movies")
@@ -17,7 +23,7 @@ function Movies() {
     };
 
     useEffect(()=>{
-        fetchMovies();
+        fetchMovies(1);
     },[]);
 
 

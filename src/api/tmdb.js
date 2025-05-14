@@ -18,9 +18,9 @@ export const getTrending = () => {
     })
 }
 
-export const getPopular = () => {
+export const getPopular = (pageNumber = 1) => {
     return axios.get(`${BASE_URL}/movie/popular`, {
-        params:{api_key:API_KEY}
+        params:{api_key:API_KEY,page:pageNumber}
     })
 }
 
