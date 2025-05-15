@@ -55,51 +55,28 @@ function HomeScreen({results}){
     
 
     return (
-      <div>
-        <div>
-          <Box sx={{ display: "flex", overflowX: "auto", gap: 2, padding: 2 }}>
-            {results.map((movie) => (
-                <MovieCard
-                    key={movie.id}
-                    id={movie.id}
-                    title={movie.title}
-                    year={movie.release_date?.split('-')[0]}
-                    rating={movie.vote_average}
-                    posterPath={movie.poster_path}
-                />
-            ))}
-          </Box>
-        </div>
-        <h1>Trending Movies</h1>
-        <Box sx={{ display: "flex", overflowX: "auto", gap: 2, padding: 2 }}>
+      <Box sx={{display:"block", padding:"10px",flexDirection:"column",alignItems:"center",paddingTop:"50px"}}>
+        <Box sx={{ display: "flex", overflowX: "auto", gap: 2}}>
+          {results.map((movie) => (
+              <MovieCard key={movie.id} movie={movie}/>
+          ))}
+        </Box>
+        <h1>This Week Trendings</h1>
+        <Box sx={{ display: "flex", overflowX: "auto", gap: 2}}>
           {trending.map((movie) => (
-              <MovieCard
-              key={movie.id}
-              id={movie.id}
-              title={movie.title}
-              year={movie.release_date?.split('-')[0]}
-              rating={movie.vote_average}
-              posterPath={movie.poster_path}
-              />
+              <MovieCard key={movie.id} movie={movie}/>
           ))}
         </Box>
         <h1>Movies</h1>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "16px" }}>
+        <Box sx={{ display: "flex", flexWrap: "wrap", gap:2, justifyContent:"center",alignItems:"center"}}>
           {movie.map((movie) => (
-            <MovieCard
-              key={movie.id}
-              id={movie.id}
-              title={movie.title}
-              year={movie.release_date?.split("-")[0]}
-              rating={movie.vote_average}
-              posterPath={movie.poster_path}
-            />
+            <MovieCard key={movie.id} movie={movie}/>
           ))}
           <div style={{ width: "100%", textAlign: "center", marginTop: "20px" }}>
             <button onClick={loadMore}>Load More</button>
           </div>
-        </div>
-      </div>
+        </Box>
+      </Box>
     
   );
 }

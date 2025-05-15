@@ -11,12 +11,12 @@ function NavBar({query,setQuery,handleSearch}){
     };
 
     return(
-        <AppBar position='static'>
-            <Toolbar sx={{display:"flex", justifyContent:"space-between", flexWrap: "wrap", flexDirection:"row"}}>
+        <AppBar position='fixed'>
+            <Toolbar sx={{display:"flex", justifyContent:"center"}}>
                 <Typography variant='h6' component="div" sx={{flexGrow:1}}>
                     Movie Explorer
                 </Typography>
-                <Box>
+                <Box sx={{display:"flex", justifyContent:"center",alignItems:"center"}}>
                     <TextField
                         label="Search for Movies..."
                         // variant='outlined'

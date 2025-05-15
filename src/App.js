@@ -6,6 +6,7 @@ import MovieDetails from './screens/MovieDetails';
 import FavouriteMovies from './screens/FavouriteMovies';
 import NavBar from './components/NavBar';
 import { searchMovies } from './api/tmdb';
+import { FavoritesProvider } from './contexts/FavouriteContexts';
 
 
 function App() {
@@ -19,14 +20,16 @@ function App() {
   };
 
   return(
-    <Router>
-      <NavBar query={query} setQuery={setQuery} handleSearch={handleSearch}/>
-      <Routes>
-        <Route path="/" element={<HomeScreen results={results}/>} />
-        <Route path="/movie/:id" element={<MovieDetails/>} />
-        <Route path="/movie/fav" element={<FavouriteMovies/>}/>
-      </Routes>
-    </Router>
+    <FavoritesProvider>
+      <Router>
+        <NavBar query={query} setQuery={setQuery} handleSearch={handleSearch}/>
+        <Routes>
+          <Route path="/" element={<HomeScreen results={results}/>} />
+          <Route path="/movie/:id" element={<MovieDetails/>} />
+          <Route path="/movie/fav" element={<FavouriteMovies/>}/>
+        </Routes>
+      </Router>
+    </FavoritesProvider>
   );
 }
 
