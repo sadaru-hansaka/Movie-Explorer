@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { act, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getMovieDetails, getMovieVideos } from '../api/tmdb';
+import { getMovieDetails, getMovieVideos,getMovieCredits } from '../api/tmdb';
+import { Box } from "@mui/material";
+import ActorCard from '../components/ActorCard';
 
 function MovieDetails(){
     const {id} = useParams();
     const[movie,setMovie]=useState(null);
     const [trailerKey, setTrailerKey] = useState(null);
+    const[cast,setCast]=useState([]);
 
     useEffect(()=>{
         const fetchDetails = async () => {
@@ -20,14 +23,20 @@ function MovieDetails(){
             );
             if (trailer) setTrailerKey(trailer.key);
         };
+        const fetchCredits = async () => {
+            const credit = await getMovieCredits(id);
+            setCast(credit.data.cast);
+            console.log(credit.data);
+        }
         fetchDetails();
         fetTrailers();
+        fetchCredits();
     },[id]);
 
     if (!movie) return <p>Loading...</p>;
 
     return(
-        <div style={{ padding: 20 }}>
+        <Box sx={{ padding:"10px" }}>
             <h2>{movie.title} ({movie.release_date?.split('-')[0]})</h2>
             <img
                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
@@ -52,7 +61,13 @@ function MovieDetails(){
                     />
                 </div>
             )}
-        </div>
+
+            <Box sx={{ display: "flex", overflowX: "auto", gap: 2}}>
+                {cast.map((actor) => (
+                    <ActorCard key={actor.cast_id} actor={actor}/>
+                ))}
+            </Box>
+        </Box>
     )
 }
 

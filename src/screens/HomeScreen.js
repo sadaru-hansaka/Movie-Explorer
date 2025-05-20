@@ -3,6 +3,7 @@ import { getTrending , getPopular} from '../api/tmdb';
 
 import MovieCard from "../components/MovieCard";
 import { Box } from "@mui/material";
+import { useTheme } from '@mui/material/styles';
 
 
 function HomeScreen({results}){
@@ -51,11 +52,13 @@ function HomeScreen({results}){
         setPages(nextPage);
     };
     
-
-    
+    const theme = useTheme();
 
     return (
-      <Box sx={{display:"block", padding:"10px",flexDirection:"column",alignItems:"center",paddingTop:"50px"}}>
+      <Box sx={{display:"block", padding:"10px",flexDirection:"column",alignItems:"center",paddingTop:"50px",p: 3,
+        bgcolor: theme.palette.background.default,
+        color: theme.palette.text.primary,
+        }}>
         <Box sx={{ display: "flex", overflowX: "auto", gap: 2}}>
           {results.map((movie) => (
               <MovieCard key={movie.id} movie={movie}/>

@@ -6,11 +6,11 @@ import { Typography,Box } from "@mui/material";
 function FavouriteMovies(){
     const {favorites} = useFavorites();
     return(
-        <Box sx={{display:"flex",flexDirection:"column",alignItems:"center", padding:2,paddingTop:"70px"}}>
+        <Box sx={{display:"flex",flexDirection:"column", padding:2,paddingTop:"70px"}}>
             <Typography variant="h4" gutterBottom>
                 Favorite Movies
             </Typography>
-            <Box sx={{ display: "flex",alignItems:"center",justifyContent:"center", flexWrap: "wrap", gap: "16px" }}>
+            <Box sx={{ display: "flex",alignItems:"center", flexWrap: "wrap", gap: "16px" }}>
                 {favorites.length === 0? (
                     <Typography>No Favorite Movies Yet!</Typography>
                 ):(
