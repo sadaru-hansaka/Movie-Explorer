@@ -1,7 +1,7 @@
 import React, { act, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMovieDetails, getMovieVideos,getMovieCredits } from '../api/tmdb';
-import { Box } from "@mui/material";
+import { Box,Typography} from "@mui/material";
 import ActorCard from '../components/ActorCard';
 
 function MovieDetails(){
@@ -36,16 +36,19 @@ function MovieDetails(){
     if (!movie) return <p>Loading...</p>;
 
     return(
-        <Box sx={{ padding:"10px" }}>
-            <h2>{movie.title} ({movie.release_date?.split('-')[0]})</h2>
-            <img
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                alt={movie.title}
-                style={{ maxWidth: 300 }}
-            />
-            <p><strong>Rating:</strong> ⭐ {movie.vote_average}</p>
-            <p><strong>Overview:</strong> {movie.overview}</p>
-            <p><strong>Genres:</strong> {movie.genres.map(g => g.name).join(', ')}</p>
+        <Box sx={{ padding:"10px", paddingTop:"100px" }}>
+            <Box sx={{display:'flex', flexDirection:{xs:'column', md:'row'}, padding:4,backgroundColor:'#1e1e1e'}}>
+                <img
+                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                    alt={movie.title}
+                    style={{ maxWidth: 300 }}
+                />
+                {/* <h2>{movie.title} ({movie.release_date?.split('-')[0]})</h2> */}
+                <Typography variant='h2'>{movie.title} ({movie.release_date?.split('-')[0]})</Typography>
+                <p><strong>Rating:</strong> ⭐ {movie.vote_average}</p>
+                <p><strong>Overview:</strong> {movie.overview}</p>
+                <p><strong>Genres:</strong> {movie.genres.map(g => g.name).join(', ')}</p>
+            </Box>
 
             {trailerKey && (
                 <div style={{ marginTop: 20 }}>
@@ -61,7 +64,7 @@ function MovieDetails(){
                     />
                 </div>
             )}
-
+        
             <Box sx={{ display: "flex", overflowX: "auto", gap: 2}}>
                 {cast.map((actor) => (
                     <ActorCard key={actor.cast_id} actor={actor}/>

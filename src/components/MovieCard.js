@@ -20,17 +20,23 @@ function MovieCard({movie}) {
   }
 
   const posterUrl = movie.poster_path
-    ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+    ? `https://image.tmdb.org/t/p/w342${movie.poster_path}`
     : 'https://via.placeholder.com/300x450?text=No+Image';
 
   return (
-    <Card  sx={{ width: 280,display: 'flex',flexDirection: 'column', backgroundColor: '#1e1e1e', color: 'white',flexShrink: 0 }}>
+    <Card  sx={{ width: 250,height:450,display: 'flex',flexDirection: 'column', backgroundColor: '#1e1e1e', color: 'white',flexShrink: 0 ,paddingTop:"5px"}}>
       <CardMedia
         component="img"
-        height="300"
         image={posterUrl}
         alt={movie.title}
         onClick={handleClick}
+
+        sx={{
+          width: '100%',
+          height: '355px',
+          objectFit: 'contain', // makes the image cover the entire area while preserving aspect ratio
+          cursor: 'pointer',
+        }}
       />
       <CardContent>
         <Typography onClick={handleClick} variant="h6" noWrap>{movie.title} ({movie.release_date?.split('-')[0]})</Typography>

@@ -1,10 +1,11 @@
 import React from 'react';
-import { Card,CardMedia,CardContent,Typography,Box } from '@mui/material';
+import { Card,CardMedia,CardContent,Typography} from '@mui/material';
+import fallBackImage from '../images/no-photo.jpg'
 
 function ActorCard({actor}){
     const imageUrl = actor.profile_path
-        ? `https://image.tmdb.org/t/p/w200${actor.profile_path}`
-        : 'https://via.placeholder.com/200x300?text=No+Image';
+        ? `https://image.tmdb.org/t/p/w185${actor.profile_path}`
+        : fallBackImage;
 
     return (
         <Card sx={{ width: 180,display: 'flex',flexDirection: 'column', backgroundColor: '#1e1e1e', color: 'white',flexShrink: 0 }}>
