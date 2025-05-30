@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getMovieDetails, getMovieVideos,getMovieCredits } from '../api/tmdb';
 import { Box,Typography} from "@mui/material";
 import ActorCard from '../components/ActorCard';
+import { RealEstateAgent } from '@mui/icons-material';
 
 function MovieDetails(){
     const {id} = useParams();
@@ -35,19 +36,44 @@ function MovieDetails(){
 
     if (!movie) return <p>Loading...</p>;
 
+    // background image for the movie details
+    const backgroundImage = movie.backdrop_path
+        ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}`
+        : 'https://via.placeholder.com/300x450?text=No+Image';
+
     return(
         <Box sx={{ padding:"10px", paddingTop:"100px" }}>
-            <Box sx={{display:'flex', flexDirection:{xs:'column', md:'row'}, padding:4,backgroundColor:'#1e1e1e'}}>
-                <img
-                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                    alt={movie.title}
-                    style={{ maxWidth: 300 }}
-                />
-                {/* <h2>{movie.title} ({movie.release_date?.split('-')[0]})</h2> */}
-                <Typography variant='h2'>{movie.title} ({movie.release_date?.split('-')[0]})</Typography>
-                <p><strong>Rating:</strong> ⭐ {movie.vote_average}</p>
-                <p><strong>Overview:</strong> {movie.overview}</p>
-                <p><strong>Genres:</strong> {movie.genres.map(g => g.name).join(', ')}</p>
+            <Box sx={{
+                    position:'relative',
+                    padding:4,
+                    overflow: 'hidden',
+                    '::before': {
+                    content: '""',
+                    position: 'absolute',
+                    inset: 0,
+                    zIndex: 0,
+                    backgroundImage: `url(${backgroundImage})`,
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    opacity: 0.8, 
+                    pointerEvents: 'none', 
+                    },
+                
+                }}>
+                <Box sx={{position:'relative',display:'flex', flexDirection:{xs:'column', md:'row'} ,justifyContent:'center'}}>
+                    <img
+                        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                        alt={movie.title}
+                        style={{ maxWidth: 300 , borderRadius:"10px"}}
+                    />
+                    {/* <h2>{movie.title} ({movie.release_date?.split('-')[0]})</h2> */}
+                    <Box sx={{padding:2, color: 'white', textShadow: '0px 0px 10px rgba(0,0,0,0.7)' }}>
+                        <Typography variant='h2'>{movie.title} ({movie.release_date?.split('-')[0]})</Typography>
+                        <p><strong>Rating:</strong> ⭐ {movie.vote_average}</p>
+                        <p><strong>Overview:</strong> {movie.overview}</p>
+                        <p><strong>Genres:</strong> {movie.genres.map(g => g.name).join(', ')}</p>
+                    </Box>
+                </Box>
             </Box>
 
             {trailerKey && (

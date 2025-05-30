@@ -24,7 +24,9 @@ function MovieCard({movie}) {
     : 'https://via.placeholder.com/300x450?text=No+Image';
 
   return (
-    <Card  sx={{ width: 250,height:450,display: 'flex',flexDirection: 'column', backgroundColor: '#1e1e1e', color: 'white',flexShrink: 0 ,paddingTop:"5px"}}>
+    // movie card
+    <Card  sx={{ width: 250,height:400,display: 'flex',flexDirection: 'column', backgroundColor: '#1e1e1e', color: 'white',flexShrink: 0 ,paddingTop:"5px"}}>
+      {/* movie card image area */}
       <CardMedia
         component="img"
         image={posterUrl}
@@ -33,16 +35,18 @@ function MovieCard({movie}) {
 
         sx={{
           width: '100%',
-          height: '355px',
+          height: '300px',
           objectFit: 'contain', // makes the image cover the entire area while preserving aspect ratio
           cursor: 'pointer',
         }}
       />
+
+      {/* Title , Ratings and favourite icon */}
       <CardContent>
         <Typography onClick={handleClick} variant="h6" noWrap>{movie.title} ({movie.release_date?.split('-')[0]})</Typography>
-        
         <Box sx={{display:"flex", alignItems:"center",justifyContent:"space-between"}}>
           <Typography variant="body2">⭐ {movie.vote_average}</Typography>
+          {/* favoutite icon */}
           <IconButton onClick={clickFavourite}>
             {fav ? <FavoriteIcon color="error" /> : <FavoriteBorderIcon sx={{color:"white"}} />}
           </IconButton>
