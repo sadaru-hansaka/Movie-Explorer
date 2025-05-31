@@ -78,7 +78,7 @@ function MovieDetails(){
                     },
                     
                 }}>
-                <Box sx={{position:'relative',display:'flex', flexDirection:{xs:'column', md:'row'} ,justifyContent:'center'}}>
+                <Box sx={{position:'relative',display:'flex', flexDirection:{xs:'column', md:'row'} ,justifyContent:'left'}}>
                     <img
                         src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                         alt={movie.title}
@@ -87,9 +87,10 @@ function MovieDetails(){
                     {/* <h2>{movie.title} ({movie.release_date?.split('-')[0]})</h2> */}
                     <Box sx={{padding:2, color: 'white', textShadow: '0px 0px 10px rgba(0,0,0,0.7)' }}>
                         <Typography variant='h3'>{movie.title} ({movie.release_date?.split('-')[0]})</Typography>
-                        <Typography variant='h5'>{movie.tagline}</Typography>
+                        <Typography variant='h5' mb={2}>{movie.tagline}</Typography>
+                        <Typography variant='body1'>Release Date : {movie.release_date}</Typography>
                         <Typography variant='body1'>Ratings :⭐ {movie.vote_average}</Typography>
-                        <Typography variant='body1'>Genres : {movie.genres.map(g => g.name).join(' | ')}</Typography>
+                        <Typography variant='body1' mb={2}>Genres : {movie.genres.map(g => g.name).join(' | ')}</Typography>
 
                         <Tooltip title={isFavorite(movie.id) ? "Remove from favorites" : "Mark as favorite"}>
                             <IconButton sx={{border:'1px solid white'}} onClick={()=>{
@@ -138,13 +139,13 @@ function MovieDetails(){
                             </DialogContent>
                         </Dialog>
 
-                        <Typography variant='h6'>Overview</Typography>
+                        <Typography variant='h6' mt={2}>Overview</Typography>
                         <Typography variant='body1'>{movie.overview}</Typography>
                     </Box>
                 </Box>
             </Box>
         
-            <Typography variant='h3'>Actors</Typography>
+            <Typography variant='h4'>Cast & crew</Typography>
             <Box sx={{ display: "flex", overflowX: "auto", gap: 2 ,pb:1,
                 "&::-webkit-scrollbar": {
                     height: "6px",

@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react';
 import { getTrending , getPopular} from '../api/tmdb';
 
 import MovieCard from "../components/MovieCard";
-import { Box } from "@mui/material";
+import { Box ,Button} from "@mui/material";
 import { useTheme } from '@mui/material/styles';
 
 
@@ -92,7 +92,7 @@ function HomeScreen({results}){
             <MovieCard key={movie.id} movie={movie}/>
           ))}
           <div style={{ width: "100%", textAlign: "center", marginTop: "20px" }}>
-            <button onClick={loadMore}>Load More</button>
+            <Button variant="outlined" onClick={loadMore}>Load More</Button>
           </div>
         </Box>
       </Box>

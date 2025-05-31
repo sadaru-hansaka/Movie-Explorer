@@ -5,6 +5,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useFavorites } from '../contexts/FavouriteContexts';
 import Tooltip from '@mui/material/Tooltip';
+import { BrokenImage } from '@mui/icons-material';
 
 function MovieCard({movie}) {
   const {addFavorite,removeFavorite,isFavorite} = useFavorites();
@@ -20,27 +21,41 @@ function MovieCard({movie}) {
     fav ? removeFavorite(movie.id) : addFavorite(movie);
   }
 
-  const posterUrl = movie.poster_path
-    ? `https://image.tmdb.org/t/p/w342${movie.poster_path}`
-    : 'https://via.placeholder.com/300x450?text=No+Image';
-
   return (
     // movie card
-    <Card  sx={{ width: 250,height:400,display: 'flex',flexDirection: 'column', backgroundColor: '#1e1e1e', color: 'white',flexShrink: 0 ,paddingTop:"5px"}}>
+    <Card  sx={{ width: 250,height:400,display: 'flex',flexDirection: 'column', backgroundColor: '#1e1e1e', color: 'white',flexShrink: 0 }}>
       {/* movie card image area */}
+      {movie.poster_path ? (
       <CardMedia
         component="img"
-        image={posterUrl}
+        image={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
         alt={movie.title}
         onClick={handleClick}
 
         sx={{
           width: '100%',
           height: '300px',
-          objectFit: 'contain', // makes the image cover the entire area while preserving aspect ratio
+          objectFit: 'fill', // makes the image cover the entire area while preserving aspect ratio
           cursor: 'pointer',
         }}
       />
+      ) : (
+        // if there's no poster the broken image icon will display
+        <Box
+          onClick={handleClick}
+          sx={{
+            width: '100%',
+            height: '300px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: '#333',
+            cursor: 'pointer',
+          }}
+        >
+          <BrokenImage sx={{ fontSize: 60, color: '#aaa' }} />
+        </Box>
+      )}
 
       {/* Title , Ratings and favourite icon */}
       <CardContent>

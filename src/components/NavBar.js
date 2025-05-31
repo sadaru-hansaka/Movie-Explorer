@@ -2,8 +2,10 @@ import React from 'react';
 import { AppBar, Toolbar, Typography, Button, Box , TextField,IconButton,FormControlLabel,Switch} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link } from 'react-router-dom';
-import { styled } from '@mui/material/styles';
+import { styled ,alpha} from '@mui/material/styles';
+import InputBase from '@mui/material/InputBase';
 
+// ui theme
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
   height: 34,
@@ -60,6 +62,52 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
+// search bar
+const Search = styled('div')(({ theme }) => ({
+  position: 'relative',
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  '&:hover': {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
+  },
+  marginLeft: 0,
+  width: '100%',
+  [theme.breakpoints.up('sm')]: {
+    marginLeft: theme.spacing(1),
+    width: '30%',
+  },
+}));
+
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: '100%',
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  zIndex: 2,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  cursor:'pointer'
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: 'inherit',
+  width: '100%',
+  '& .MuiInputBase-input': {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    // transition: theme.transitions.create('width'),
+    // [theme.breakpoints.up('sm')]: {
+    //   width: '18ch',
+    //   '&:focus': {
+    //     width: '20ch',
+    //   },
+    // },
+  },
+}));
+
 
 function NavBar({query,setQuery,handleSearch,mode,handleToggle}){
 
@@ -73,7 +121,7 @@ function NavBar({query,setQuery,handleSearch,mode,handleToggle}){
                 <Typography variant='h6' component="div" sx={{flexGrow:1}}>
                     Movie Explorer
                 </Typography>
-                <Box sx={{display:"flex", justifyContent:"center",alignItems:"center"}}>
+                {/* <Box sx={{display:"flex", justifyContent:"center",alignItems:"center"}}>
                     <TextField
                         label="Search for Movies..."
                         // variant='outlined'
@@ -86,8 +134,20 @@ function NavBar({query,setQuery,handleSearch,mode,handleToggle}){
                     <IconButton onClick={handleSearch} color="inherit">
                         <SearchIcon />
                     </IconButton>
-                </Box>
-                
+                </Box> */}
+
+                <Search sx={{marginRight:"10px"}}>
+                  <SearchIconWrapper  onClick={handleSearch}>
+                    <SearchIcon />
+                  </SearchIconWrapper>
+                  <StyledInputBase
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    onKeyPress={handleKeyPress}
+                    placeholder="Search for a movie"
+                    inputProps={{ 'aria-label': 'search' }}
+                  />
+                </Search>
 
                 <Box>
                     <Button component={Link} to="/" color="inherit">Home</Button>
