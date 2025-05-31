@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useFavorites } from '../contexts/FavouriteContexts';
+import Tooltip from '@mui/material/Tooltip';
 
 function MovieCard({movie}) {
   const {addFavorite,removeFavorite,isFavorite} = useFavorites();
@@ -47,9 +48,11 @@ function MovieCard({movie}) {
         <Box sx={{display:"flex", alignItems:"center",justifyContent:"space-between"}}>
           <Typography variant="body2">⭐ {movie.vote_average}</Typography>
           {/* favoutite icon */}
-          <IconButton onClick={clickFavourite}>
-            {fav ? <FavoriteIcon color="error" /> : <FavoriteBorderIcon sx={{color:"white"}} />}
-          </IconButton>
+          <Tooltip title={fav ? "Remove from favorites" : "Mark as favorite"}>
+            <IconButton onClick={clickFavourite}>
+              {fav ? <FavoriteIcon color="error" /> : <FavoriteBorderIcon sx={{color:"white"}} />}
+            </IconButton>
+          </Tooltip>
         </Box>
       </CardContent>
     </Card>

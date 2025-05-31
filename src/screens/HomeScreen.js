@@ -55,17 +55,33 @@ function HomeScreen({results}){
     const theme = useTheme();
 
     return (
-      <Box sx={{display:"block", padding:"10px",flexDirection:"column",alignItems:"center",paddingTop:"50px",p: 3,
+      <Box sx={{display:"block", padding:"10px",flexDirection:"column",alignItems:"center",paddingTop:"80px",p: 3,
         bgcolor: theme.palette.background.default,
         color: theme.palette.text.primary,
         }}>
-        <Box sx={{ display: "flex", overflowX: "auto", gap: 2}}>
+        <Box sx={{ display: "flex", overflowX: "auto", gap: 2,pb:1,
+          "&::-webkit-scrollbar": {
+              height: "6px",
+          },
+          "&::-webkit-scrollbar-thumb": {
+              backgroundColor: "#888",
+              borderRadius: "4px",
+          },
+        }}>
           {results.map((movie) => (
               <MovieCard key={movie.id} movie={movie}/>
           ))}
         </Box>
         <h1>This Week Trendings</h1>
-        <Box sx={{ display: "flex", overflowX: "auto", gap: 2}}>
+        <Box sx={{ display: "flex", overflowX: "auto", gap: 2,pb:1,
+          "&::-webkit-scrollbar": {
+              height: "6px",
+          },
+          "&::-webkit-scrollbar-thumb": {
+              backgroundColor: "#888",
+              borderRadius: "4px",
+          },
+        }}>
           {trending.map((movie) => (
               <MovieCard key={movie.id} movie={movie}/>
           ))}
