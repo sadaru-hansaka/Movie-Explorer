@@ -33,4 +33,24 @@ export const getMovieVideos = (id) =>
   axios.get(`${BASE_URL}/movie/${id}/videos?api_key=${API_KEY}`);
 
 export const getMovieCredits = (id) =>
-  axios.get(`${BASE_URL}/movie/${id}/credits?api_key=${API_KEY}`)
+  axios.get(`${BASE_URL}/movie/${id}/credits?api_key=${API_KEY}`);
+
+// gets the list of genres
+export const getGenres = () =>
+  axios.get(`${BASE_URL}/genre/movie/list?api_key=${API_KEY}`);
+
+
+// fetch filtered movies
+export const getFilteredData = (selectedGenres, selectedYear) => {
+  let url = `${BASE_URL}/discover/movie?api_key=${API_KEY}&sort_by=popularity.desc`;
+
+  if (selectedGenres.length > 0) {
+    url += `&with_genres=${selectedGenres.join(',')}`;
+  }
+
+  if (selectedYear) {
+    url += `&primary_release_year=${selectedYear}`;
+  }
+
+  return axios.get(url);
+};

@@ -99,6 +99,9 @@ function MovieDetails(){
                                 {isFavorite(movie.id) ? <FavoriteIcon color="error"/> : <FavoriteBorderIcon sx={{color:"white"}} />}
                             </IconButton>
                         </Tooltip>
+
+                        {/* watch trailer button */}
+                        {/* when user clicked this button the movies trailer will display on a pop up screen */}
                         <Button variant='outlined' startIcon={<PlayArrowIcon />} onClick={handleOpen} sx={{
                             color: 'white',
                             borderColor: 'white',

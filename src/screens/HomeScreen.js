@@ -2,8 +2,9 @@ import React,{useState,useEffect} from 'react';
 import { getTrending , getPopular} from '../api/tmdb';
 
 import MovieCard from "../components/MovieCard";
-import { Box ,Button} from "@mui/material";
+import { Box ,Button, Typography} from "@mui/material";
 import { useTheme } from '@mui/material/styles';
+import MovieFilter from '../components/MovieFilter';
 
 
 function HomeScreen({results}){
@@ -59,6 +60,7 @@ function HomeScreen({results}){
         bgcolor: theme.palette.background.default,
         color: theme.palette.text.primary,
         }}>
+        <MovieFilter />
         <Box sx={{ display: "flex", overflowX: "auto", gap: 2,pb:1,
           "&::-webkit-scrollbar": {
               height: "6px",
