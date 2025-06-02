@@ -147,21 +147,37 @@ function MovieDetails(){
                     </Box>
                 </Box>
             </Box>
-        
-            <Typography variant='h4'>Cast & crew</Typography>
-            <Box sx={{ display: "flex", overflowX: "auto", gap: 2 ,pb:1,
-                "&::-webkit-scrollbar": {
-                    height: "6px",
-                },
-                "&::-webkit-scrollbar-thumb": {
-                    backgroundColor: "#888",
-                    borderRadius: "4px",
-                },
-            }}>
-                {cast.map((actor) => (
-                    <ActorCard key={actor.cast_id} actor={actor}/>
-                ))}
+
+            <Box sx={{backgroundColor: (theme) => theme.palette.primary.main + '20',p:2,mt:2,borderRadius:2}}>
+
+                <Box sx={{display:'flex',justifyContent:'space-around',p:2, border:"2px solid white", borderRadius:2}}>
+                    <Typography variant='body1'>Spoken Languages : {movie.spoken_languages.map(lang => lang.english_name).join(" | ")}</Typography>
+                    <Typography variant='body1'>Origin Country : {movie.origin_country.join(" | ")}</Typography>
+                    <Typography variant='body1'>Budget : $ {movie.budget.toLocaleString()}</Typography>
+                    <Typography variant='body1'>Visit :  
+                        <a href={movie.homepage} target="_blank" rel="noopener noreferrer" style={{ color: 'blue' }}>
+                            Official Movie Site
+                        </a>
+                    </Typography>
+                </Box>
+
+                <Typography variant='h5' sx={{p:2}}>Cast & crew</Typography>
+                <Box sx={{ display: "flex", overflowX: "auto", gap: 2 ,pb:1,
+                    "&::-webkit-scrollbar": {
+                        height: "6px",
+                    },
+                    "&::-webkit-scrollbar-thumb": {
+                        backgroundColor: "black",
+                        borderRadius: "4px",
+                    },
+                }}>
+                    {cast.map((actor) => (
+                        <ActorCard key={actor.cast_id} actor={actor}/>
+                    ))}
+                </Box>
             </Box>
+
+            
         </Box>
     )
 }
