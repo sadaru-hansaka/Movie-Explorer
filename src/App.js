@@ -15,6 +15,7 @@ function App() {
   // search movies
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
+  const [text,setText] = useState('');
 
   useEffect(() => {
     const savedMode = localStorage.getItem('themeMode') || 'light';
@@ -33,6 +34,7 @@ function App() {
   const handleSearch = async () => {
       const res = await searchMovies(query);
       setResults(res.data.results);
+      setText(`Search results for "${query}"`);
   };
 
   return(
@@ -43,7 +45,7 @@ function App() {
           <NavBar query={query} setQuery={setQuery} handleSearch={handleSearch} mode={mode} handleToggle={handleToggle}/>
         
           <Routes>
-            <Route path="/" element={<HomeScreen results={results}/>} />
+            <Route path="/" element={<HomeScreen results={results} text={text}/>} />
             <Route path="/movie/:id" element={<MovieDetails/>} />
             <Route path="/movie/fav" element={<FavouriteMovies/>}/>
           </Routes>

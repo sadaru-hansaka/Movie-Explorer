@@ -155,7 +155,7 @@ function MovieDetails(){
                     <Typography variant='body1'>Origin Country : {movie.origin_country.join(" | ")}</Typography>
                     <Typography variant='body1'>Budget : $ {movie.budget.toLocaleString()}</Typography>
                     <Typography variant='body1'>Visit :  
-                        <a href={movie.homepage} target="_blank" rel="noopener noreferrer" style={{ color: 'blue' }}>
+                        <a href={movie.homepage} target="_blank" rel="noopener noreferrer" style={{ color: '#254D70' }}>
                             Official Movie Site
                         </a>
                     </Typography>

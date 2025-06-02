@@ -118,23 +118,7 @@ function NavBar({query,setQuery,handleSearch,mode,handleToggle}){
     return(
         <AppBar position='fixed'>
             <Toolbar sx={{display:"flex", justifyContent:"center"}}>
-                <Typography variant='h6' component="div" sx={{flexGrow:1}}>
-                    Movie Explorer
-                </Typography>
-                {/* <Box sx={{display:"flex", justifyContent:"center",alignItems:"center"}}>
-                    <TextField
-                        label="Search for Movies..."
-                        // variant='outlined'
-                        value={query}
-                        onChange={(e) => setQuery(e.target.value)}
-                        onKeyPress={handleKeyPress}
-                        size="small"
-                        sx={{ backgroundColor: "white", borderRadius: 3 }}
-                    />
-                    <IconButton onClick={handleSearch} color="inherit">
-                        <SearchIcon />
-                    </IconButton>
-                </Box> */}
+                <Typography variant='h6' component="div" sx={{flexGrow:1}}>Movie Explorer</Typography>
 
                 <Search sx={{marginRight:"10px"}}>
                   <SearchIconWrapper  onClick={handleSearch}>
@@ -153,22 +137,9 @@ function NavBar({query,setQuery,handleSearch,mode,handleToggle}){
                     <Button component={Link} to="/" color="inherit">Home</Button>
                     <Button component={Link} to="/movie/fav" color="inherit">Favorites</Button>
                 </Box>
-                {/* <FormControlLabel
-                    control={
-                        <Switch
-                        checked={mode === 'dark'}
-                        onChange={handleToggle}
-                        color="default"
-                        />
-                    }
-                    label={mode === 'dark' ? 'Dark' : 'Light'}
-                    labelPlacement="start"
-                    sx={{ ml: 2 }}
-                /> */}
+                
 
-                <FormControlLabel
-                    control={<MaterialUISwitch sx={{ m: 1 }} checked={mode==='dark'} onChange={handleToggle} color='default'/>}
-                />
+                <FormControlLabel control={<MaterialUISwitch sx={{ m: 1 }} checked={mode==='dark'} onChange={handleToggle} color='default'/>}/>
             </Toolbar>
         </AppBar>
     )

@@ -7,7 +7,7 @@ import { useTheme } from '@mui/material/styles';
 import MovieFilter from '../components/MovieFilter';
 
 
-function HomeScreen({results}){
+function HomeScreen({results,text}){
 
     // save trending movies
     const [trending, setTrending]=useState([]);
@@ -61,7 +61,8 @@ function HomeScreen({results}){
         color: theme.palette.text.primary,
         }}>
         <MovieFilter />
-        <Box sx={{ display: "flex", overflowX: "auto", gap: 2,pb:1,
+        <Typography variant='h4' sx={{mt:2}}>{text}</Typography>
+        <Box sx={{ display: "flex", overflowX: "auto", gap: 2,pb:1,mt:2,
           "&::-webkit-scrollbar": {
               height: "6px",
           },
@@ -74,8 +75,8 @@ function HomeScreen({results}){
               <MovieCard key={movie.id} movie={movie}/>
           ))}
         </Box>
-        <h1>This Week Trendings</h1>
-        <Box sx={{ display: "flex", overflowX: "auto", gap: 2,pb:1,
+        <Typography variant='h4' sx={{mt:2}}>This Week Trendings</Typography>
+        <Box sx={{ display: "flex", overflowX: "auto", gap: 2,pb:1,mt:2,
           "&::-webkit-scrollbar": {
               height: "6px",
           },
@@ -88,8 +89,8 @@ function HomeScreen({results}){
               <MovieCard key={movie.id} movie={movie}/>
           ))}
         </Box>
-        <h1>Movies</h1>
-        <Box sx={{ display: "flex", flexWrap: "wrap", gap:2, justifyContent:"center",alignItems:"center"}}>
+        <Typography variant='h4' sx={{mt:2}}>Movies</Typography>
+        <Box sx={{ display: "flex", flexWrap: "wrap", gap:2, justifyContent:"space-evenly",alignItems:"center",mt:2}}>
           {movie.map((movie) => (
             <MovieCard key={movie.id} movie={movie}/>
           ))}
