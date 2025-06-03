@@ -1,4 +1,8 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext ,useEffect} from 'react';
+import { db } from '../Firebase/firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../Firebase/firebase';
+import { useNavigate } from 'react-router-dom';
 
 const FavoritesContext = createContext();
 
@@ -8,11 +12,53 @@ export const useFavorites = () => useContext(FavoritesContext);
 export const FavoritesProvider = ({ children }) => {
     // stores favourite movies
   const [favorites, setFavorites] = useState([]);
+  const [user] = useAuthState(auth);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      if (user) {
+        try {
+          const favSnapshot = await db
+            .collection('users')
+            .doc(user.uid)
+            .collection('favorites')
+            .get();
+
+          const favs = favSnapshot.docs.map(doc => doc.data());
+          setFavorites(favs);
+        } catch (error) {
+          console.error("Error fetching favorites:", error);
+        }
+      } else {
+        setFavorites([]);
+      }
+    };
+
+    fetchFavorites();
+  }, [user]);
+
 
 //   add movies if there are no same details
-  const addFavorite = (movie) => {
+  const addFavorite = async (movie) => {
+
+    if (!user) {
+      navigate('/movie/sign');
+      return;
+    }
+
     if (!favorites.some((fav) => fav.id === movie.id)) {
-      setFavorites([...favorites, movie]);
+      try {
+      await db
+        .collection('users')
+        .doc(user.uid)
+        .collection('favorites')
+        .doc(String(movie.id))
+        .set(movie);
+        setFavorites([...favorites, movie]);
+      } catch (error) {
+        console.error("Error adding favorite:", error);
+      }
     }
   };
 
@@ -28,7 +74,7 @@ export const FavoritesProvider = ({ children }) => {
 
 //   share context
   return (
-    <FavoritesContext.Provider value={{ favorites, addFavorite, removeFavorite, isFavorite }}>
+    <FavoritesContext.Provider value={{ favorites,setFavorites ,addFavorite, removeFavorite, isFavorite }}>
       {children}
     </FavoritesContext.Provider>
   );

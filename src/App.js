@@ -9,6 +9,10 @@ import { searchMovies } from './api/tmdb';
 import { FavoritesProvider } from './contexts/FavouriteContexts';
 import { ThemeProvider, CssBaseline, Switch, FormControlLabel, Box } from '@mui/material';
 import {lightTheme,darkTheme} from './theme/Theme';
+import SignIn from './screens/SignIn';
+import {auth} from './Firebase/firebase';
+import { AuthProvider } from './contexts/AuthContext';
+import Profile from './screens/Profile';
 
 function App() {
   const [mode, setMode] = useState('light');
@@ -37,20 +41,34 @@ function App() {
       setText(`Search results for "${query}"`);
   };
 
+  // Sign in part
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((u) => setUser(u));
+    return () => unsubscribe();
+  }, []);
+
   return(
     <ThemeProvider theme={theme}>
       <CssBaseline/>
-      <FavoritesProvider>
-        <Router>
-          <NavBar query={query} setQuery={setQuery} handleSearch={handleSearch} mode={mode} handleToggle={handleToggle}/>
-        
-          <Routes>
-            <Route path="/" element={<HomeScreen results={results} text={text}/>} />
-            <Route path="/movie/:id" element={<MovieDetails/>} />
-            <Route path="/movie/fav" element={<FavouriteMovies/>}/>
-          </Routes>
-        </Router>
-      </FavoritesProvider>
+      <Router>
+        <AuthProvider>
+        <FavoritesProvider>
+          
+            <NavBar query={query} setQuery={setQuery} handleSearch={handleSearch} mode={mode} handleToggle={handleToggle} user={user}/>
+          
+            <Routes>
+              <Route path="/" element={<HomeScreen results={results} text={text}/>} />
+              <Route path="/movie/:id" element={<MovieDetails/>} />
+              <Route path="/movie/fav" element={<FavouriteMovies/>}/>
+              <Route path="/movie/sign" element={<SignIn/>}/>
+              <Route path='/profile' element={<Profile/>}/>
+            </Routes>
+          
+        </FavoritesProvider>
+        </AuthProvider>
+      </Router>
     </ThemeProvider>
   );
 }

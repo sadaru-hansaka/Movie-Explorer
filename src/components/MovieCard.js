@@ -6,6 +6,8 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useFavorites } from '../contexts/FavouriteContexts';
 import Tooltip from '@mui/material/Tooltip';
 import { BrokenImage } from '@mui/icons-material';
+// import { useAuth } from '../contexts/AuthContext';
+// import { db } from '../Firebase/firebase';
 
 function MovieCard({movie}) {
   const {addFavorite,removeFavorite,isFavorite} = useFavorites();
@@ -17,9 +19,34 @@ function MovieCard({movie}) {
     navigate(`/movie/${movie.id}`);
   };
 
+  // const { user } = useAuth();
+
   const clickFavourite = () => {
     fav ? removeFavorite(movie.id) : addFavorite(movie);
   }
+
+  // const clickFavourite = async () => {
+  //   if (!user) {
+  //     navigate('/movie/sign');
+  //     return;
+  //   }
+
+  //   if (fav) {
+  //     removeFavorite(movie.id);
+  //   } else {
+  //     addFavorite(movie);
+  //     try{
+  //       await db.collection('user')
+  //       .doc(user.uid)
+  //       .collection('favorites')
+  //       .doc(movie.id.toString())
+  //       .set(movie);
+  //     }catch(err){
+  //       console.error("Error saving")
+  //     }
+  //   }
+  // }
+
 
   return (
     // movie card

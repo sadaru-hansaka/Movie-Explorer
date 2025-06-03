@@ -1,10 +1,13 @@
-import React from "react";
+import React,{useEffect} from "react";
 import {useFavorites} from '../contexts/FavouriteContexts';
 import MovieCard from "../components/MovieCard";
 import { Typography,Box } from "@mui/material";
 
+
+
 function FavouriteMovies(){
-    const {favorites} = useFavorites();
+    const {favorites,setFavorites} = useFavorites();
+
     return(
         <Box sx={{display:"flex",flexDirection:"column", padding:2,paddingTop:"80px"}}>
             <Typography variant="h4" gutterBottom>

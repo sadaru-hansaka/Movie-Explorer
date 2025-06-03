@@ -6,11 +6,12 @@ import { styled ,alpha} from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import { useState } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 // ui theme
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
-  width: 62,
-  height: 34,
+  width: 55,
+  height: 28,
   padding: 7,
   '& .MuiSwitch-switchBase': {
     margin: 1,
@@ -35,8 +36,8 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   },
   '& .MuiSwitch-thumb': {
     backgroundColor: '#001e3c',
-    width: 32,
-    height: 32,
+    width: 25,
+    height: 25,
     '&::before': {
       content: "''",
       position: 'absolute',
@@ -111,7 +112,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 
-function NavBar({query,setQuery,handleSearch,mode,handleToggle}){
+function NavBar({query,setQuery,handleSearch,mode,handleToggle,user}){
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const theme = useTheme();
@@ -151,8 +152,9 @@ function NavBar({query,setQuery,handleSearch,mode,handleToggle}){
   return(
     <>
       <AppBar position='fixed'>
-        <Toolbar sx={{display:"flex", justifyContent:"center"}}>
+        <Toolbar sx={{display:"flex", justifyContent:"space-between"}}>
           <Typography variant='h6' component="div" sx={{flexGrow:1}}>Movie Explorer</Typography>
+
 
           <Search sx={{marginRight:"10px"}}>
             <SearchIconWrapper  onClick={handleSearch}>
@@ -174,9 +176,17 @@ function NavBar({query,setQuery,handleSearch,mode,handleToggle}){
               </IconButton>
             </>
           ):(
-            <Box>
+            <Box sx={{display:"flex",justifyContent:'flex-end'}}>
               <Button component={Link} to="/" color="inherit">Home</Button>
               <Button component={Link} to="/movie/fav" color="inherit">Favorites</Button>
+              {user ? (
+                <IconButton component={Link} to="/profile" color="inherit">
+                  <AccountCircleIcon />
+                </IconButton>
+              ) : (
+                <Button component={Link} to="/movie/sign" color="inherit">Sign In</Button>
+              )}
+              {/* <IconButton component={Link} to="/movie/sign" color="inherit"><AccountCircleIcon /></IconButton> */}
               <FormControlLabel control={<MaterialUISwitch sx={{ m: 1 }} checked={mode==='dark'} onChange={handleToggle} color='default'/>}/>
             </Box>
           )}
