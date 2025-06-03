@@ -67,7 +67,7 @@ function MovieFilter(){
 
     return(
         <Box>
-            <Box sx={{display: "Flex",overflowX: "auto", gap:2,p:2,alignItems:"center"}}>
+            <Box sx={{display: "Flex",overflowX: "auto", gap:{xs:1,sm:2},p:1,alignItems:"center",mt:{xs:6,sm:5}}}>
                 {/* Select genres */}
                 <FormControl sx={{ m: 1, width: 300 }}>
                     <InputLabel id="demo-multiple-checkbox-label">Genres</InputLabel>

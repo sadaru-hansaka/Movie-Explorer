@@ -78,14 +78,14 @@ function MovieDetails(){
                     },
                     
                 }}>
-                <Box sx={{position:'relative',display:'flex', flexDirection:{xs:'column', md:'row'} ,justifyContent:'left'}}>
+                <Box sx={{position:'relative',display:'flex', flexDirection:{xs:'column', md:'row'} ,justifyContent:{xs:'center',md:'left'}}}>
                     <img
                         src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                         alt={movie.title}
                         style={{ maxWidth: 300 , borderRadius:"10px"}}
                     />
                     {/* <h2>{movie.title} ({movie.release_date?.split('-')[0]})</h2> */}
-                    <Box sx={{padding:2, color: 'white', textShadow: '0px 0px 10px rgba(0,0,0,0.7)' }}>
+                    <Box sx={{padding:2, color: 'white', textShadow: '0px 0px 10px rgba(0,0,0,0.7)'}}>
                         <Typography variant='h3'>{movie.title} ({movie.release_date?.split('-')[0]})</Typography>
                         <Typography variant='h5' mb={2}>{movie.tagline}</Typography>
                         <Typography variant='body1'>Release Date : {movie.release_date}</Typography>
@@ -150,7 +150,7 @@ function MovieDetails(){
 
             <Box sx={{backgroundColor: (theme) => theme.palette.primary.main + '20',p:2,mt:2,borderRadius:2}}>
 
-                <Box sx={{display:'flex',justifyContent:'space-around',p:2, border:"2px solid white", borderRadius:2}}>
+                <Box sx={{display:'flex',justifyContent:'space-around',p:2, border:"2px solid white", borderRadius:2,flexDirection:{xs:'column', md:'row'}}}>
                     <Typography variant='body1'>Spoken Languages : {movie.spoken_languages.map(lang => lang.english_name).join(" | ")}</Typography>
                     <Typography variant='body1'>Origin Country : {movie.origin_country.join(" | ")}</Typography>
                     <Typography variant='body1'>Budget : $ {movie.budget.toLocaleString()}</Typography>

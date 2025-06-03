@@ -56,12 +56,12 @@ function HomeScreen({results,text}){
     const theme = useTheme();
 
     return (
-      <Box sx={{display:"block", padding:"10px",flexDirection:"column",alignItems:"center",paddingTop:"80px",p: 3,
+      <Box sx={{display:"block", padding:"10px",flexDirection:"column",alignItems:"center",paddingTop:"80px",p:{xs:2, sm:3},
         bgcolor: theme.palette.background.default,
         color: theme.palette.text.primary,
         }}>
         <MovieFilter />
-        <Typography variant='h4' sx={{mt:2}}>{text}</Typography>
+        <Typography variant='h4'>{text}</Typography>
         <Box sx={{ display: "flex", overflowX: "auto", gap: 2,pb:1,mt:2,
           "&::-webkit-scrollbar": {
               height: "6px",
@@ -90,7 +90,7 @@ function HomeScreen({results,text}){
           ))}
         </Box>
         <Typography variant='h4' sx={{mt:2}}>Movies</Typography>
-        <Box sx={{ display: "flex", flexWrap: "wrap", gap:2, justifyContent:"space-evenly",alignItems:"center",mt:2}}>
+        <Box sx={{ display: "flex", flexWrap: "wrap", gap:{xs:1,sm:2}, justifyContent:"space-evenly",alignItems:"center",mt:2}}>
           {movie.map((movie) => (
             <MovieCard key={movie.id} movie={movie}/>
           ))}

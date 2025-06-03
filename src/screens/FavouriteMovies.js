@@ -17,7 +17,7 @@ function FavouriteMovies(){
                     <Typography variant="body2">Add favorites by cliking Favorite icon.</Typography>
                 </Box>
             ):(
-                <Box sx={{ display: "flex", flexWrap: "wrap", gap:2, justifyContent:"space-evenly",alignItems:"center",mt:2}}>
+                <Box sx={{ display: "flex", flexWrap: "wrap", gap:{xs:1,sm:2}, justifyContent:"space-evenly",alignItems:"center",mt:2}}>
                     {favorites.map((movie) =>(
                         <MovieCard key={movie.id} movie={movie}/>
                     ))}

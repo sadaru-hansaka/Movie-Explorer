@@ -23,7 +23,7 @@ function MovieCard({movie}) {
 
   return (
     // movie card
-    <Card  sx={{ width: 250,height:400,display: 'flex',flexDirection: 'column', backgroundColor: '#1e1e1e', color: 'white',flexShrink: 0 }}>
+    <Card  sx={{ width: {xs:'48%', sm:250},height:{xs:310,sm:400},display: 'flex',flexDirection: 'column', backgroundColor: '#1e1e1e', color: 'white',flexShrink: 0 }}>
       {/* movie card image area */}
       {movie.poster_path ? (
       <CardMedia
@@ -34,7 +34,7 @@ function MovieCard({movie}) {
 
         sx={{
           width: '100%',
-          height: '300px',
+          height: {xs:'220px',sm:'300px'},
           objectFit: 'fill', // makes the image cover the entire area while preserving aspect ratio
           cursor: 'pointer',
         }}
@@ -45,7 +45,7 @@ function MovieCard({movie}) {
           onClick={handleClick}
           sx={{
             width: '100%',
-            height: '300px',
+            height: {xs:'250px',sm:'300px'},
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',

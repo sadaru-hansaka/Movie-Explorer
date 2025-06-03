@@ -1,9 +1,11 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Button, Box , TextField,IconButton,FormControlLabel,Switch} from '@mui/material';
+import { AppBar, Toolbar, Typography, Button, Box ,Drawer,List,ListItem,ListItemText,IconButton,FormControlLabel,Switch,useTheme, useMediaQuery} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link } from 'react-router-dom';
 import { styled ,alpha} from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
+import { useState } from 'react';
+import MenuIcon from '@mui/icons-material/Menu';
 
 // ui theme
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
@@ -111,38 +113,84 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 function NavBar({query,setQuery,handleSearch,mode,handleToggle}){
 
-    const handleKeyPress = (e) => {
-        if (e.key === 'Enter') handleSearch();
-    };
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-    return(
-        <AppBar position='fixed'>
-            <Toolbar sx={{display:"flex", justifyContent:"center"}}>
-                <Typography variant='h6' component="div" sx={{flexGrow:1}}>Movie Explorer</Typography>
+  // search process workks when entry key clicked
+  const handleKeyPress = (e) => {
+      if (e.key === 'Enter') handleSearch();
+  };
 
-                <Search sx={{marginRight:"10px"}}>
-                  <SearchIconWrapper  onClick={handleSearch}>
-                    <SearchIcon />
-                  </SearchIconWrapper>
-                  <StyledInputBase
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    onKeyPress={handleKeyPress}
-                    placeholder="Search for a movie"
-                    inputProps={{ 'aria-label': 'search' }}
-                  />
-                </Search>
+  const toggleDrawer = () => {
+    setDrawerOpen(!drawerOpen);
+  };
 
-                <Box>
-                    <Button component={Link} to="/" color="inherit">Home</Button>
-                    <Button component={Link} to="/movie/fav" color="inherit">Favorites</Button>
-                </Box>
-                
+  const drawer = (
+    <Box sx={{ width: 250 }} onClick={toggleDrawer}>
+      <List>
+        <ListItem button component={Link} to="/">
+          <ListItemText 
+            primary="Home" 
+            primaryTypographyProps={{ sx: { color: theme.palette.mode === 'dark' ? '#fff' : '#000' } }}
+          />
+        </ListItem>
+        <ListItem button component={Link} to="/movie/fav">
+          <ListItemText 
+            primary="Favorites" 
+            primaryTypographyProps={{ sx: { color: theme.palette.mode === 'dark' ? '#fff' : '#000' } }}
+          />
+        </ListItem>
+        <ListItem>
+          <FormControlLabel control={<MaterialUISwitch sx={{ m: 1 }} checked={mode==='dark'} onChange={handleToggle} color='default'/>}/>
+        </ListItem>
+      </List>
+    </Box>
+  );
 
-                <FormControlLabel control={<MaterialUISwitch sx={{ m: 1 }} checked={mode==='dark'} onChange={handleToggle} color='default'/>}/>
-            </Toolbar>
-        </AppBar>
-    )
+  return(
+    <>
+      <AppBar position='fixed'>
+        <Toolbar sx={{display:"flex", justifyContent:"center"}}>
+          <Typography variant='h6' component="div" sx={{flexGrow:1}}>Movie Explorer</Typography>
+
+          <Search sx={{marginRight:"10px"}}>
+            <SearchIconWrapper  onClick={handleSearch}>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyPress={handleKeyPress}
+              placeholder="Search for a movie"
+              inputProps={{ 'aria-label': 'search' }}
+            />
+          </Search>
+
+          {isMobile ? (
+            <>
+              <IconButton color="inherit" onClick={toggleDrawer}>
+                <MenuIcon />
+              </IconButton>
+            </>
+          ):(
+            <Box>
+              <Button component={Link} to="/" color="inherit">Home</Button>
+              <Button component={Link} to="/movie/fav" color="inherit">Favorites</Button>
+              <FormControlLabel control={<MaterialUISwitch sx={{ m: 1 }} checked={mode==='dark'} onChange={handleToggle} color='default'/>}/>
+            </Box>
+          )}
+
+          {/* <FormControlLabel control={<MaterialUISwitch sx={{ m: 1 }} checked={mode==='dark'} onChange={handleToggle} color='default'/>}/> */}
+        </Toolbar>
+      </AppBar>
+
+      {/* Drawer for mobile */}
+      <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer}>
+        {drawer}
+      </Drawer>
+    </>
+  )
 }
 
 export default NavBar;
