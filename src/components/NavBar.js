@@ -143,6 +143,25 @@ function NavBar({query,setQuery,handleSearch,mode,handleToggle,user}){
           />
         </ListItem>
         <ListItem>
+          {user ? (
+            // <IconButton component={Link} to="/profile" color="inherit">
+            //   <AccountCircleIcon />
+            // </IconButton>
+            <ListItemText 
+              primary="Profile" 
+              primaryTypographyProps={{ sx: { color: theme.palette.mode === 'dark' ? '#fff' : '#000' } }}  
+              component={Link} to="/profile">
+            </ListItemText>
+          ) : (
+            // <Button component={Link} to="/movie/sign" color="inherit">Sign In</Button>
+            <ListItemText 
+              primary="Sign in" 
+              primaryTypographyProps={{ sx: { color: theme.palette.mode === 'dark' ? '#fff' : '#000' } }}
+              component={Link} to="/movie/sign">
+            </ListItemText>
+          )}
+        </ListItem>
+        <ListItem>
           <FormControlLabel control={<MaterialUISwitch sx={{ m: 1 }} checked={mode==='dark'} onChange={handleToggle} color='default'/>}/>
         </ListItem>
       </List>

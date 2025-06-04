@@ -63,7 +63,7 @@ function App() {
               <Route path="/movie/:id" element={<MovieDetails/>} />
               <Route path="/movie/fav" element={<FavouriteMovies/>}/>
               <Route path="/movie/sign" element={<SignIn/>}/>
-              <Route path='/profile' element={<Profile/>}/>
+              <Route path='/profile' element={<Profile user={user}/>}/>
             </Routes>
           
         </FavoritesProvider>
